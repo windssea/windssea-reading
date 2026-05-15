@@ -140,10 +140,15 @@ function App() {
     return () => window.removeEventListener('keydown', onFsKey);
   }, [toggleFullscreen, showNotes, showOverview]);
 
+  const navLockRef = useRef(false);
+
   function onPageTap(event) {
     if (window.innerWidth > 900) return;
     if (showNotes || showOverview) return;
     if (event.target.closest('button, a, input, textarea, select')) return;
+    if (navLockRef.current) return;
+    navLockRef.current = true;
+    setTimeout(() => { navLockRef.current = false; }, 320);
     if (event.clientX < window.innerWidth / 2) prev();
     else next();
   }
