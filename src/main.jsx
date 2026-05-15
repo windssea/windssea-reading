@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 
@@ -357,12 +357,124 @@ function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
 
+function buildPresenterHtml(initialIndex) {
+  return `<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>演讲者模式 · 阅读理解课</title>
+<style>
+  :root{--ink:#171717;--muted:#6a6358;--paper:#fbfaf6;--panel:#fff;--line:rgba(35,30,24,.14);--accent:#1a3a7a;--accent2:#b3392d;--green:#2d7d6e}
+  *{box-sizing:border-box} body{margin:0;min-height:100vh;background:var(--paper);color:var(--ink);font-family:"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;overflow:hidden}
+  .presenter{height:100vh;padding:18px;display:grid;grid-template-columns:1.35fr .9fr;grid-template-rows:1fr 1fr;gap:14px;background:linear-gradient(90deg,rgba(20,20,20,.035) 0 1px,transparent 1px),linear-gradient(0deg,rgba(20,20,20,.025) 0 1px,transparent 1px),var(--paper);background-size:44px 44px}
+  .card{background:var(--panel);border:1px solid var(--line);box-shadow:0 1px 0 rgba(20,20,20,.08);min-height:0;display:flex;flex-direction:column}
+  .card h2{margin:0;padding:12px 14px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  .stage{padding:18px;display:grid;gap:12px;align-content:start;min-height:0;overflow:auto}
+  .current{grid-row:span 2}.preview-title{font-family:"Noto Serif SC","Songti SC",Georgia,serif;font-size:clamp(26px,4.2vw,58px);line-height:1.08;font-weight:600;letter-spacing:.02em;margin:0}
+  .preview-eyebrow{margin:0;color:var(--accent2);font-weight:800;letter-spacing:.12em}.preview-body{font-size:18px;line-height:1.55;color:var(--muted)}
+  .mini .preview-title{font-size:30px}.script{padding:20px 24px;font-size:24px;line-height:1.75;overflow:auto;white-space:pre-wrap}.script b{color:var(--accent)}
+  .timer{padding:20px;display:grid;gap:16px;align-content:start}.clock{font-variant-numeric:tabular-nums;font-size:56px;font-weight:800;color:var(--green)}
+  .meta{font-size:18px;color:var(--muted)}.buttons{display:flex;gap:10px;flex-wrap:wrap}.buttons button{border:1px solid var(--line);background:#fff;padding:10px 14px;cursor:pointer;color:var(--ink);font:inherit}.buttons button:hover{border-color:var(--accent);color:var(--accent)}
+</style>
+</head>
+<body>
+<main class="presenter">
+  <section class="card current"><h2>Current</h2><div id="current" class="stage"></div></section>
+  <section class="card mini"><h2>Next</h2><div id="next" class="stage"></div></section>
+  <section class="card"><h2>Speaker Script</h2><div id="script" class="script"></div></section>
+  <section class="card"><h2>Timer</h2><div class="timer"><div id="clock" class="clock">00:00</div><div id="meta" class="meta"></div><div class="buttons"><button id="prev">上一页</button><button id="nextBtn">下一页</button><button id="reset">重置计时</button></div></div></section>
+</main>
+<script>
+  const slides = ${JSON.stringify(slides)};
+  let idx = ${initialIndex};
+  let started = Date.now();
+  const current = document.getElementById('current');
+  const next = document.getElementById('next');
+  const script = document.getElementById('script');
+  const meta = document.getElementById('meta');
+  const clock = document.getElementById('clock');
+  function esc(value){return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));}
+  function summarize(slide){
+    if(!slide) return '';
+    const pool = slide.quote || slide.formula || slide.subtitle || (slide.items || slide.cards || slide.steps || slide.blocks || []).slice(0,3).map(item => item.join('：')).join(' / ');
+    return esc(pool);
+  }
+  function card(slide){
+    if(!slide) return '<p class="preview-body">已经是最后一页。</p>';
+    return '<p class="preview-eyebrow">'+esc(slide.eyebrow)+'</p><h1 class="preview-title">'+esc(slide.title)+'</h1><p class="preview-body">'+summarize(slide)+'</p>';
+  }
+  function render(){
+    current.innerHTML = card(slides[idx]);
+    next.innerHTML = card(slides[Math.min(idx + 1, slides.length - 1)]);
+    script.textContent = slides[idx]?.note || '';
+    meta.textContent = '第 ' + (idx + 1) + ' / ' + slides.length + ' 页';
+  }
+  function goto(nextIdx){
+    idx = Math.max(0, Math.min(slides.length - 1, nextIdx));
+    render();
+    window.opener?.postMessage({type:'presenter-goto', idx}, '*');
+  }
+  function tick(){
+    const seconds = Math.floor((Date.now() - started) / 1000);
+    clock.textContent = String(Math.floor(seconds / 60)).padStart(2,'0') + ':' + String(seconds % 60).padStart(2,'0');
+  }
+  document.getElementById('prev').onclick = () => goto(idx - 1);
+  document.getElementById('nextBtn').onclick = () => goto(idx + 1);
+  document.getElementById('reset').onclick = () => { started = Date.now(); tick(); };
+  window.addEventListener('message', event => { if(event.data?.type === 'audience-goto'){ idx = event.data.idx; render(); } });
+  window.addEventListener('keydown', event => {
+    if(event.key === 'ArrowRight' || event.key === ' ') { event.preventDefault(); goto(idx + 1); }
+    if(event.key === 'ArrowLeft') { event.preventDefault(); goto(idx - 1); }
+    if(event.key.toLowerCase() === 'r') { started = Date.now(); tick(); }
+    if(event.key === 'Escape') window.close();
+  });
+  render(); tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>`;
+}
+
 function App() {
   const [current, setCurrent] = useState(0);
   const [showNotes, setShowNotes] = useState(false);
   const [showOverview, setShowOverview] = useState(false);
+  const presenterRef = useRef(null);
 
   const progress = useMemo(() => ((current + 1) / slides.length) * 100, [current]);
+
+  function goToSlide(index) {
+    setCurrent(clamp(index, 0, slides.length - 1));
+  }
+
+  function openPresenter() {
+    const presenter = window.open('', 'reading-presenter-mode', 'width=1440,height=900');
+    if (!presenter) {
+      setShowNotes(true);
+      return;
+    }
+
+    presenterRef.current = presenter;
+    presenter.document.open();
+    presenter.document.write(buildPresenterHtml(current));
+    presenter.document.close();
+    presenter.focus();
+  }
+
+  useEffect(() => {
+    presenterRef.current?.postMessage({ type: 'audience-goto', idx: current }, '*');
+  }, [current]);
+
+  useEffect(() => {
+    function onMessage(event) {
+      if (event.data?.type === 'presenter-goto') {
+        goToSlide(event.data.idx);
+      }
+    }
+
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, []);
 
   useEffect(() => {
     function onKeyDown(event) {
@@ -391,6 +503,10 @@ function App() {
       if (event.key.toLowerCase() === 'o') {
         setShowOverview((value) => !value);
       }
+      if (event.key.toLowerCase() === 's') {
+        event.preventDefault();
+        openPresenter();
+      }
       if (event.key === 'Escape') {
         setShowNotes(false);
         setShowOverview(false);
@@ -410,6 +526,7 @@ function App() {
         <button className="rail-brand" type="button" onClick={() => setCurrent(0)} title="回到首页">
           <span>阅读</span>
           <b>理解</b>
+          <small>course module</small>
         </button>
         <nav>
           {sectionNames.map((name, index) => (
@@ -423,7 +540,6 @@ function App() {
         <SlideContent slide={slide} index={current} />
       </section>
       <footer className="deck-footer">
-        <span>课堂教学版</span>
         <span>
           {current + 1} / {slides.length}
         </span>
@@ -440,6 +556,9 @@ function App() {
         </button>
         <button type="button" onClick={() => setShowNotes((value) => !value)}>
           讲稿
+        </button>
+        <button type="button" onClick={openPresenter}>
+          演讲
         </button>
         <button type="button" onClick={() => setCurrent((value) => clamp(value + 1, 0, slides.length - 1))}>
           下一页
