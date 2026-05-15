@@ -1,0 +1,49 @@
+- main [ref=e3]:
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - paragraph [ref=e7]: 课堂导入
+      - generic [ref=e8]: "01"
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - img [ref=e12]
+          - generic [ref=e15]: 课堂导入
+        - heading "阅读理解答题技巧" [level=1] [ref=e16]
+        - paragraph [ref=e17]: 给小学生的一套清楚、好记、能落笔的方法
+        - generic [ref=e18]:
+          - generic [ref=e19]: 读懂文章
+          - generic [ref=e20]: 找准依据
+          - generic [ref=e21]: 规范表达
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - img [ref=e24]
+          - generic [ref=e27]: READ
+        - generic [ref=e28]:
+          - generic [ref=e29]:
+            - generic [ref=e30]: "1"
+            - text: 先看原文
+          - generic [ref=e31]:
+            - generic [ref=e32]: "2"
+            - text: 再分题型
+          - generic [ref=e33]:
+            - generic [ref=e34]: "3"
+            - text: 最后写完整
+  - generic "幻灯片控制" [ref=e35]:
+    - button "首页" [ref=e36] [cursor=pointer]:
+      - img [ref=e37]
+      - text: 首页
+    - button "上一页" [ref=e40] [cursor=pointer]:
+      - img [ref=e41]
+      - text: 上一页
+    - button "总览" [ref=e43] [cursor=pointer]:
+      - img [ref=e44]
+      - text: 总览
+    - button "讲稿" [ref=e49] [cursor=pointer]:
+      - img [ref=e50]
+      - text: 讲稿
+    - button "演讲" [ref=e53] [cursor=pointer]:
+      - img [ref=e54]
+      - text: 演讲
+    - button "下一页" [ref=e57] [cursor=pointer]:
+      - img [ref=e58]
+      - text: 下一页

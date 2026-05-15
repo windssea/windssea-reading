@@ -4,6 +4,16 @@ import './styles.css';
 
 const slides = [
   {
+    eyebrow: '课堂导入',
+    title: '阅读理解答题技巧',
+    subtitle: '给小学生的一套清楚、好记、能落笔的方法',
+    type: 'title',
+    chips: ['读懂文章', '找准依据', '规范表达'],
+    goals: ['先看原文', '再分题型', '最后写完整'],
+    note:
+      '这是整套课件的封面。开场时可以先告诉学生：阅读理解不是靠猜，也不是靠背答案，而是有步骤、有方法。今天我们会把题目拆开看，学会回到原文找依据，再把答案写完整。'
+  },
+  {
     eyebrow: '语文阅读理解',
     title: '把题做对，不靠感觉',
     subtitle: '一套能落到笔上的阅读理解答题方法',
@@ -352,9 +362,99 @@ const slides = [
 ];
 
 const sectionNames = ['总法', '记叙文', '说明文', '议论文', '题型', '检查'];
+const sectionStarts = [0, 6, 13, 16, 18, 25];
+const sectionIcons = ['sparkles', 'book-open', 'search', 'message', 'target', 'check'];
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
+}
+
+function Icon({ name }) {
+  const paths = {
+    'book-open': (
+      <>
+        <path d="M4 5.5c2.6-.9 5-.6 7 1v12c-2-1.6-4.4-1.9-7-1V5.5Z" />
+        <path d="M20 5.5c-2.6-.9-5-.6-7 1v12c2-1.6 4.4-1.9 7-1V5.5Z" />
+      </>
+    ),
+    check: <path d="m5 12 4.2 4.2L19 6.5" />,
+    'chevron-left': <path d="m15 18-6-6 6-6" />,
+    'chevron-right': <path d="m9 18 6-6-6-6" />,
+    home: (
+      <>
+        <path d="m4 11 8-7 8 7" />
+        <path d="M6.5 10.5V20h11v-9.5" />
+      </>
+    ),
+    layout: (
+      <>
+        <rect x="4" y="5" width="7" height="6" rx="1.5" />
+        <rect x="13" y="5" width="7" height="6" rx="1.5" />
+        <rect x="4" y="13" width="7" height="6" rx="1.5" />
+        <rect x="13" y="13" width="7" height="6" rx="1.5" />
+      </>
+    ),
+    menu: (
+      <>
+        <path d="M5 7h14" />
+        <path d="M5 12h14" />
+        <path d="M5 17h14" />
+      </>
+    ),
+    message: (
+      <>
+        <path d="M5 6.5h14v9H9l-4 3v-12Z" />
+        <path d="M8 10h8" />
+        <path d="M8 13h5" />
+      </>
+    ),
+    note: (
+      <>
+        <path d="M6 4.5h9l3 3V20H6V4.5Z" />
+        <path d="M14.5 4.5V8h3.5" />
+        <path d="M9 12h6" />
+        <path d="M9 15h4" />
+      </>
+    ),
+    pen: (
+      <>
+        <path d="M4 20h4l11-11-4-4L4 16v4Z" />
+        <path d="m13.5 6.5 4 4" />
+      </>
+    ),
+    presentation: (
+      <>
+        <path d="M4 5h16v10H4z" />
+        <path d="M12 15v5" />
+        <path d="m8 20 4-3 4 3" />
+      </>
+    ),
+    search: (
+      <>
+        <circle cx="11" cy="11" r="6" />
+        <path d="m16 16 4 4" />
+      </>
+    ),
+    sparkles: (
+      <>
+        <path d="M12 3.5 13.6 8l4.4 1.6-4.4 1.6L12 15.5l-1.6-4.3L6 9.6 10.4 8 12 3.5Z" />
+        <path d="m18.5 14 .7 2 1.8.7-1.8.7-.7 2-.7-2-1.8-.7 1.8-.7.7-2Z" />
+      </>
+    ),
+    target: (
+      <>
+        <circle cx="12" cy="12" r="8" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="12" cy="12" r="1" />
+      </>
+    )
+  };
+
+  return (
+    <svg className="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      {paths[name] || paths.sparkles}
+    </svg>
+  );
 }
 
 function buildPresenterHtml(initialIndex) {
@@ -440,6 +540,7 @@ function App() {
   const [showNotes, setShowNotes] = useState(false);
   const [showOverview, setShowOverview] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [railCollapsed, setRailCollapsed] = useState(false);
   const presenterRef = useRef(null);
   const touchRef = useRef({ x: 0, y: 0, time: 0 });
 
@@ -558,12 +659,12 @@ function App() {
 
   return (
     <main
-      className={`deck-shell${isMobile ? ' mobile-shell' : ''}`}
+      className={`deck-shell${isMobile ? ' mobile-shell' : ''}${railCollapsed ? ' rail-collapsed' : ''}`}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       <div className="progress" style={{ width: `${progress}%` }} />
-      <aside className="rail" aria-label="课程章节">
+      <aside className={`rail${railCollapsed ? ' is-collapsed' : ''}`} aria-label="课程章节">
         <button className="rail-brand" type="button" onClick={() => setCurrent(0)} title="回到首页">
           <span>阅读</span>
           <b>理解</b>
@@ -571,11 +672,29 @@ function App() {
         </button>
         <nav>
           {sectionNames.map((name, index) => (
-            <span key={name} className={index === activeSection(current) ? 'active' : ''}>
-              {name}
-            </span>
+            <button
+              key={name}
+              type="button"
+              className={index === activeSection(current) ? 'active' : ''}
+              onClick={() => setCurrent(sectionStarts[index])}
+              title={`跳转到${name}`}
+            >
+              <span className="rail-icon">
+                <Icon name={sectionIcons[index]} />
+              </span>
+              <span>{name}</span>
+            </button>
           ))}
         </nav>
+        <button
+          className="rail-toggle"
+          type="button"
+          onClick={() => setRailCollapsed((value) => !value)}
+          aria-label={railCollapsed ? '展开目录' : '收起目录'}
+          title={railCollapsed ? '展开目录' : '收起目录'}
+        >
+          <Icon name={railCollapsed ? 'chevron-right' : 'chevron-left'} />
+        </button>
       </aside>
       <section key={current} className={`slide slide-${slide.type}`}>
         <SlideContent slide={slide} index={current} />
@@ -587,21 +706,27 @@ function App() {
       </footer>
       <div className="controls" aria-label="幻灯片控制">
         <button type="button" onClick={() => setCurrent(0)}>
+          <Icon name="home" />
           首页
         </button>
         <button type="button" onClick={() => setCurrent((value) => clamp(value - 1, 0, slides.length - 1))}>
+          <Icon name="chevron-left" />
           上一页
         </button>
         <button type="button" onClick={() => setShowOverview(true)}>
+          <Icon name="layout" />
           总览
         </button>
         <button type="button" onClick={() => setShowNotes((value) => !value)}>
+          <Icon name="note" />
           讲稿
         </button>
         <button type="button" onClick={openPresenter}>
+          <Icon name="presentation" />
           演讲
         </button>
         <button type="button" onClick={() => setCurrent((value) => clamp(value + 1, 0, slides.length - 1))}>
+          <Icon name="chevron-right" />
           下一页
         </button>
       </div>
@@ -612,11 +737,11 @@ function App() {
 }
 
 function activeSection(index) {
-  if (index <= 4) return 0;
-  if (index <= 11) return 1;
-  if (index <= 14) return 2;
-  if (index <= 16) return 3;
-  if (index <= 23) return 4;
+  if (index <= 5) return 0;
+  if (index <= 12) return 1;
+  if (index <= 15) return 2;
+  if (index <= 17) return 3;
+  if (index <= 24) return 4;
   return 5;
 }
 
@@ -633,6 +758,40 @@ function SlideContent({ slide, index }) {
 }
 
 function renderBody(slide) {
+  if (slide.type === 'title') {
+    return (
+      <div className="title-layout">
+        <div className="title-copy">
+          <div className="title-badge">
+            <Icon name="sparkles" />
+            <span>{slide.eyebrow}</span>
+          </div>
+          <h1>{slide.title}</h1>
+          <p className="subtitle">{slide.subtitle}</p>
+          <div className="title-chip-row">
+            {slide.chips.map((chip) => (
+              <span key={chip}>{chip}</span>
+            ))}
+          </div>
+        </div>
+        <div className="title-visual" aria-hidden="true">
+          <div className="book-card">
+            <Icon name="book-open" />
+            <b>READ</b>
+          </div>
+          <div className="path-card">
+            {slide.goals.map((goal, index) => (
+              <span key={goal}>
+                <i>{index + 1}</i>
+                {goal}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (slide.type === 'cover') {
     return (
       <div className="cover-layout">
