@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   ArrowLeft,
@@ -50,7 +50,6 @@ function App() {
   const [fragment, setFragment] = useState(0);
   const [showNotes, setShowNotes] = useState(false);
   const [showOverview, setShowOverview] = useState(false);
-  const touchRef = useRef({ x: 0, y: 0 });
 
   const slide = slides[current];
   const maxFragment = fragmentCount(slide);
@@ -108,22 +107,16 @@ function App() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [current, fragment, maxFragment]);
 
-  function onTouchStart(event) {
-    const touch = event.touches[0];
-    touchRef.current = { x: touch.clientX, y: touch.clientY };
-  }
-
-  function onTouchEnd(event) {
-    const touch = event.changedTouches[0];
-    const dx = touch.clientX - touchRef.current.x;
-    const dy = touch.clientY - touchRef.current.y;
-    if (Math.abs(dx) < 44 || Math.abs(dy) > 70) return;
-    if (dx < 0) next();
-    else prev();
+  function onPageTap(event) {
+    if (window.innerWidth > 900) return;
+    if (showNotes || showOverview) return;
+    if (event.target.closest('button, a, input, textarea, select')) return;
+    if (event.clientX < window.innerWidth / 2) prev();
+    else next();
   }
 
   return (
-    <main className="slidev-shell" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+    <main className="slidev-shell" onClick={onPageTap}>
       <div className="slidev-progress" style={{ width: `${progress}%` }} />
       <aside className="slidev-toc">
         <button type="button" className="slidev-brand" onClick={() => goTo(0)}>
