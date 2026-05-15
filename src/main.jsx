@@ -351,6 +351,9 @@ function App() {
         event.preventDefault();
         setCurrent(0);
       }
+      if (event.key.toLowerCase() === 'h') {
+        setCurrent(0);
+      }
       if (event.key === 'End') {
         event.preventDefault();
         setCurrent(slides.length - 1);
@@ -377,10 +380,10 @@ function App() {
     <main className="deck-shell">
       <div className="progress" style={{ width: `${progress}%` }} />
       <aside className="rail" aria-label="课程章节">
-        <div className="rail-brand">
+        <button className="rail-brand" type="button" onClick={() => setCurrent(0)} title="回到首页">
           <span>阅读</span>
           <b>理解</b>
-        </div>
+        </button>
         <nav>
           {sectionNames.map((name, index) => (
             <span key={name} className={index === activeSection(current) ? 'active' : ''}>
@@ -389,7 +392,7 @@ function App() {
           ))}
         </nav>
       </aside>
-      <section className={`slide slide-${slide.type}`}>
+      <section key={current} className={`slide slide-${slide.type}`}>
         <SlideContent slide={slide} index={current} />
       </section>
       <footer className="deck-footer">
@@ -399,6 +402,9 @@ function App() {
         </span>
       </footer>
       <div className="controls" aria-label="幻灯片控制">
+        <button type="button" onClick={() => setCurrent(0)}>
+          首页
+        </button>
         <button type="button" onClick={() => setCurrent((value) => clamp(value - 1, 0, slides.length - 1))}>
           上一页
         </button>
