@@ -1,15 +1,17 @@
 :root {
-  --ink: #182033;
-  --muted: #617089;
-  --paper: #fbf7ee;
+  --ink: #0a0a0a;
+  --muted: #666666;
+  --paper: #fdfcf8;
   --panel: #ffffff;
-  --line: #e2dccf;
-  --green: #1d7f72;
-  --green-soft: #dff3eb;
-  --red: #c5533d;
-  --gold: #d8a536;
-  --shadow: 0 18px 50px rgba(34, 42, 58, 0.16);
-  font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", system-ui, sans-serif;
+  --panel-soft: #f7f5ed;
+  --line: rgba(20, 20, 20, 0.14);
+  --line-strong: rgba(20, 20, 20, 0.35);
+  --accent: #1a3a7a;
+  --accent-soft: #e8edf8;
+  --red: #8a1a1a;
+  --gold: #8a6a1a;
+  --shadow: none;
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", Georgia, serif;
   color: var(--ink);
   background: var(--paper);
 }
@@ -34,19 +36,18 @@ button {
   height: 100vh;
   padding: clamp(18px, 3vw, 34px) clamp(18px, 3vw, 42px) clamp(18px, 3vw, 34px) clamp(132px, 13vw, 170px);
   background:
-    linear-gradient(90deg, rgba(29, 127, 114, 0.08) 0 1px, transparent 1px 100%),
-    linear-gradient(0deg, rgba(29, 127, 114, 0.06) 0 1px, transparent 1px 100%),
-    radial-gradient(circle at 78% 18%, rgba(216, 165, 54, 0.18), transparent 28%),
+    linear-gradient(90deg, rgba(20, 20, 20, 0.045) 0 1px, transparent 1px 100%),
+    linear-gradient(0deg, rgba(20, 20, 20, 0.035) 0 1px, transparent 1px 100%),
     var(--paper);
-  background-size: 44px 44px, 44px 44px, auto, auto;
+  background-size: 48px 48px, 48px 48px, auto;
 }
 
 .progress {
   position: fixed;
   top: 0;
   left: 0;
-  height: 6px;
-  background: linear-gradient(90deg, var(--green), var(--gold), var(--red));
+  height: 4px;
+  background: var(--accent);
   transition: width 240ms ease;
   z-index: 10;
 }
@@ -57,7 +58,7 @@ button {
   width: 128px;
   padding: 30px 18px;
   border-right: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.68);
+  background: rgba(253, 252, 248, 0.9);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -77,7 +78,7 @@ button {
 }
 
 .rail-brand b {
-  color: var(--green);
+  color: var(--accent);
   font-size: 32px;
   transition: color 160ms ease;
 }
@@ -99,8 +100,8 @@ button {
 }
 
 .rail nav .active {
-  color: var(--green);
-  border-color: var(--green);
+  color: var(--accent);
+  border-color: var(--accent);
   font-weight: 800;
 }
 
@@ -110,24 +111,31 @@ button {
   margin: 0 auto;
   padding: clamp(30px, 4vw, 52px) clamp(28px, 4.8vw, 62px);
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.92);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.96);
   box-shadow: var(--shadow);
   position: relative;
   overflow: auto;
   animation: slide-enter 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.slide::-webkit-scrollbar,
+.notes-panel::-webkit-scrollbar,
+.overview-panel::-webkit-scrollbar,
+table::-webkit-scrollbar {
+  display: none;
 }
 
 .slide::after {
   content: "";
   position: absolute;
-  right: -80px;
-  bottom: -80px;
-  width: 260px;
-  height: 260px;
-  border: 36px solid rgba(29, 127, 114, 0.12);
-  transform: rotate(12deg);
+  inset: 26px;
+  border: 1px solid rgba(20, 20, 20, 0.08);
+  width: auto;
+  height: auto;
+  transform: none;
   pointer-events: none;
 }
 
@@ -144,10 +152,11 @@ button {
 
 .eyebrow {
   margin: 0;
-  color: var(--green);
-  font-size: clamp(13px, 1.3vw, 15px);
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0;
 }
 
 .slide-index {
@@ -164,34 +173,34 @@ p {
 
 h1 {
   max-width: 840px;
-  font-size: clamp(42px, 5.7vw, 74px);
-  line-height: 1.06;
+  font-size: 64px;
+  line-height: 1.08;
   letter-spacing: 0;
   margin-bottom: 28px;
 }
 
 h2 {
-  font-size: clamp(30px, 4vw, 48px);
+  font-size: 42px;
   line-height: 1.15;
   letter-spacing: 0;
   margin-bottom: clamp(22px, 3vw, 34px);
 }
 
 h3 {
-  font-size: clamp(20px, 2.3vw, 24px);
+  font-size: 22px;
   margin-bottom: 12px;
 }
 
 p,
 li,
 td {
-  font-size: clamp(16px, 1.55vw, 20px);
+  font-size: 17px;
   line-height: 1.55;
 }
 
 .subtitle {
   color: var(--muted);
-  font-size: clamp(20px, 2.4vw, 28px);
+  font-size: 24px;
   max-width: 760px;
 }
 
@@ -205,7 +214,7 @@ td {
 
 .goal-stack {
   display: grid;
-  gap: 16px;
+  gap: 12px;
 }
 
 .goal {
@@ -213,10 +222,10 @@ td {
   grid-template-columns: 48px 1fr;
   align-items: center;
   gap: 14px;
-  padding: 18px;
+  padding: 14px 16px;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--green-soft);
+  border-radius: 0;
+  background: var(--panel-soft);
 }
 
 .goal span,
@@ -226,8 +235,8 @@ td {
   place-items: center;
   width: 42px;
   height: 42px;
-  border-radius: 50%;
-  background: var(--green);
+  border-radius: 0;
+  background: var(--accent);
   color: white;
   font-weight: 900;
 }
@@ -237,7 +246,7 @@ td {
 .mini-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
-  gap: 18px;
+  gap: 14px;
 }
 
 .check-item,
@@ -250,17 +259,17 @@ td {
 .three-grid article,
 .radial article {
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--panel);
-  padding: clamp(18px, 2.2vw, 24px);
+  padding: clamp(14px, 1.7vw, 20px);
 }
 
 .check-item span {
   display: block;
   width: 36px;
-  height: 8px;
-  background: var(--gold);
-  margin-bottom: 20px;
+  height: 2px;
+  background: var(--ink);
+  margin-bottom: 14px;
 }
 
 .check-item p,
@@ -273,12 +282,12 @@ td {
 }
 
 blockquote {
-  margin: 0 0 34px;
-  padding: clamp(22px, 3vw, 34px) clamp(22px, 3.4vw, 40px);
-  border-left: 10px solid var(--green);
-  background: var(--green-soft);
-  border-radius: 8px;
-  font-size: clamp(28px, 4vw, 44px);
+  margin: 0 0 26px;
+  padding: clamp(18px, 2.5vw, 30px) clamp(20px, 3vw, 36px);
+  border-left: 6px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0;
+  font-size: 36px;
   line-height: 1.3;
   font-weight: 900;
 }
@@ -286,54 +295,54 @@ blockquote {
 .process-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
-  gap: 18px;
+  gap: 14px;
 }
 
 .process-list article {
   display: grid;
   grid-template-columns: 54px 1fr;
-  gap: 18px;
+  gap: 14px;
   padding: clamp(14px, 2vw, 20px);
   border-bottom: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.72);
+  background: var(--panel);
 }
 
 .split-layout,
 .compare-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
-  gap: 26px;
+  gap: 18px;
 }
 
 .tag-wrap,
 .tip-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 10px;
 }
 
 .tag-wrap span,
 .tip-row span {
   padding: 12px 16px;
-  border-radius: 999px;
-  background: var(--green-soft);
-  color: var(--green);
-  font-size: clamp(15px, 1.7vw, 20px);
-  font-weight: 800;
+  border-radius: 0;
+  background: var(--panel-soft);
+  color: var(--accent);
+  font-size: 17px;
+  font-weight: 700;
 }
 
 .formula {
   color: var(--red);
-  font-size: clamp(20px, 2.3vw, 28px);
+  font-size: 24px;
   font-weight: 900;
   line-height: 1.45;
 }
 
 .formula.wide {
   padding: 24px 28px;
-  border-radius: 8px;
-  background: #fff3d6;
-  border: 1px solid #ecd28b;
+  border-radius: 0;
+  background: #f5f3ea;
+  border: 1px solid var(--line-strong);
 }
 
 .example {
@@ -345,7 +354,7 @@ table {
   border-collapse: collapse;
   background: white;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
 }
 
@@ -357,9 +366,9 @@ td {
 }
 
 th {
-  background: var(--green);
+  background: var(--accent);
   color: white;
-  font-size: clamp(15px, 1.4vw, 18px);
+  font-size: 16px;
 }
 
 tr:last-child td {
@@ -369,16 +378,16 @@ tr:last-child td {
 .three-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
-  gap: 22px;
+  gap: 16px;
 }
 
 .three-grid article {
-  min-height: min(330px, 42vh);
+  min-height: min(260px, 34vh);
 }
 
 .three-grid b {
   color: var(--red);
-  font-size: clamp(18px, 2vw, 22px);
+  font-size: 20px;
 }
 
 ul {
@@ -387,13 +396,13 @@ ul {
 }
 
 .example-box {
-  margin: 24px 0;
+  margin: 18px 0;
 }
 
 .radial {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
-  gap: 18px;
+  gap: 14px;
   align-items: stretch;
 }
 
@@ -402,10 +411,10 @@ ul {
   display: grid;
   place-items: center;
   min-height: 360px;
-  border-radius: 8px;
-  background: var(--green);
+  border-radius: 0;
+  background: var(--accent);
   color: white;
-  font-size: clamp(30px, 4vw, 46px);
+  font-size: 42px;
   font-weight: 900;
 }
 
@@ -420,8 +429,8 @@ ul {
 
 .controls {
   position: fixed;
-  right: 54px;
-  bottom: 42px;
+  right: 42px;
+  bottom: 30px;
   display: flex;
   gap: 8px;
   z-index: 20;
@@ -435,18 +444,18 @@ ul {
   border: 1px solid var(--line);
   background: white;
   color: var(--ink);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 10px 14px;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
   transition: transform 160ms ease, border-color 160ms ease, color 160ms ease;
 }
 
 .controls button:hover,
 .notes-panel button:hover,
 .overview-panel > button:hover {
-  border-color: var(--green);
-  color: var(--green);
+  border-color: var(--accent);
+  color: var(--accent);
   transform: translateY(-1px);
 }
 
@@ -457,9 +466,11 @@ ul {
   width: 440px;
   max-height: calc(100vh - 84px);
   overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   padding: 28px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 0;
   background: white;
   box-shadow: var(--shadow);
   z-index: 40;
@@ -491,8 +502,10 @@ ul {
   width: min(1100px, 86vw);
   max-height: 86vh;
   overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   padding: 30px;
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--paper);
   animation: panel-in 180ms ease-out;
 }
@@ -511,20 +524,20 @@ ul {
   min-height: 88px;
   text-align: left;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 0;
   background: white;
   padding: 14px;
   cursor: pointer;
 }
 
 .overview-grid button.active {
-  border-color: var(--green);
-  background: var(--green-soft);
+  border-color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .overview-grid span {
   display: block;
-  color: var(--green);
+  color: var(--accent);
   font-weight: 900;
   margin-bottom: 6px;
 }
@@ -646,7 +659,7 @@ table {
     height: calc(100vh - 92px);
     min-height: 0;
     padding: 22px;
-    border-radius: 8px;
+    border-radius: 0;
   }
 
   .slide::after {
@@ -657,6 +670,36 @@ table {
 
   .slide-header {
     margin-bottom: 18px;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  p,
+  li,
+  td {
+    font-size: 16px;
+  }
+
+  .subtitle {
+    font-size: 19px;
+  }
+
+  blockquote {
+    font-size: 28px;
+  }
+
+  .formula {
+    font-size: 19px;
   }
 
   .cover-layout,
@@ -735,6 +778,36 @@ table {
   .slide {
     height: calc(100vh - 88px);
     padding: 18px;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  h2 {
+    font-size: 25px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  p,
+  li,
+  td {
+    font-size: 14px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  blockquote {
+    font-size: 23px;
+  }
+
+  .formula {
+    font-size: 16px;
   }
 
   .goal {
