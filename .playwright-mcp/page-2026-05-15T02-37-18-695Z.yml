@@ -1,13 +1,13 @@
 - main [ref=e3]:
   - generic [ref=e5]:
     - generic [ref=e6]:
-      - paragraph [ref=e7]: 课堂导入
+      - paragraph [ref=e7]: 总法
       - generic [ref=e8]: "01"
     - generic [ref=e9]:
       - generic [ref=e10]:
         - generic [ref=e11]:
           - img [ref=e12]
-          - generic [ref=e15]: 课堂导入
+          - generic [ref=e15]: 总法
         - heading "阅读理解答题技巧" [level=1] [ref=e16]
         - paragraph [ref=e17]: 给小学生的一套清楚、好记、能落笔的方法
         - generic [ref=e18]:

@@ -2,7 +2,7 @@
 
 export const slides = [
   {
-    eyebrow: '课堂导入',
+    eyebrow: '阅读理解',
     title: '阅读理解答题技巧',
     subtitle: '给小学生的一套清楚、好记、能落笔的方法',
     type: 'title',

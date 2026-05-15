@@ -144,10 +144,10 @@ button {
   justify-self: center;
   display: flex;
   flex-direction: column;
-  width: min(1120px, 100%);
+  width: min(1360px, 100%);
   aspect-ratio: 16 / 9;
   max-height: calc(100vh - 86px);
-  padding: clamp(26px, 3.4vw, 50px);
+  padding: clamp(32px, 4vw, 56px);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 26px;
@@ -227,23 +227,23 @@ button {
 }
 
 .slidev-stage h1 {
-  max-width: 860px;
-  font-size: clamp(36px, 4vw, 56px);
-  line-height: 1.08;
+  max-width: 920px;
+  font-size: clamp(46px, 5vw, 68px);
+  line-height: 1.06;
 }
 
 .slidev-stage h2 {
-  max-width: 920px;
-  font-size: clamp(27px, 3vw, 42px);
-  line-height: 1.14;
+  max-width: 960px;
+  font-size: clamp(34px, 3.8vw, 50px);
+  line-height: 1.1;
 }
 
 .slidev-heading {
   position: relative;
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-columns: 52px minmax(0, 1fr);
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   padding-bottom: 16px;
 }
 
@@ -262,8 +262,8 @@ button {
 .slidev-icon {
   display: inline-grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   flex: none;
   border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 14px;
@@ -328,20 +328,21 @@ button {
 
 .layout-title .slidev-title,
 .layout-cover .slidev-cover {
+  flex: 1;
   min-height: 100%;
 }
 
 .slidev-subtitle {
-  max-width: 850px;
+  max-width: 880px;
   margin: 14px 0 0;
   color: #5f6d7d;
-  font-size: clamp(16px, 1.48vw, 21px);
-  line-height: 1.58;
+  font-size: clamp(18px, 1.6vw, 24px);
+  line-height: 1.54;
 }
 
 .layout-title,
 .layout-cover {
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .slidev-cover {
@@ -355,9 +356,9 @@ button {
 
 .slidev-cover-title {
   display: grid;
-  grid-template-columns: 52px minmax(0, 1fr);
+  grid-template-columns: 58px minmax(0, 1fr);
   align-items: center;
-  gap: 16px;
+  gap: 18px;
 }
 
 .slidev-orbit {
@@ -424,34 +425,34 @@ button {
 .slidev-tags span {
   display: inline-flex;
   align-items: center;
-  min-height: 30px;
-  padding: 6px 12px;
+  min-height: 32px;
+  padding: 7px 14px;
   border-radius: 999px;
   color: #214f43;
   background: linear-gradient(135deg, rgba(155, 218, 191, 0.68), rgba(255, 254, 250, 0.54));
-  font-size: clamp(12px, 1vw, 14px);
+  font-size: clamp(14px, 1.1vw, 16px);
   font-weight: 800;
 }
 
 .slidev-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: minmax(118px, 1fr);
+  grid-auto-rows: minmax(124px, 1fr);
   align-content: stretch;
   flex: 1;
-  gap: 14px;
-  margin-top: 22px;
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .slidev-card {
   position: relative;
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 14px;
   align-items: start;
   min-width: 0;
   min-height: 0;
-  padding: 17px;
+  padding: 20px;
   border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 18px;
   background:
@@ -501,10 +502,10 @@ button {
 .slidev-two h3 {
   position: relative;
   z-index: 1;
-  margin: 0 0 8px;
+  margin: 0 0 9px;
   color: var(--forest);
-  font-size: clamp(17px, 1.32vw, 20px);
-  line-height: 1.28;
+  font-size: clamp(20px, 1.6vw, 26px);
+  line-height: 1.24;
 }
 
 .slidev-card p,
@@ -515,8 +516,8 @@ button {
 .slidev-two li {
   margin: 0;
   color: #4e5d6f;
-  font-size: clamp(13px, 1.05vw, 16px);
-  line-height: 1.58;
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.54;
   position: relative;
   z-index: 1;
 }
@@ -533,10 +534,10 @@ button {
 .slidev-steps {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: minmax(104px, 1fr);
+  grid-auto-rows: minmax(110px, 1fr);
   flex: 1;
-  gap: 14px;
-  margin-top: 22px;
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .slidev-steps article,
@@ -557,17 +558,17 @@ button {
 .slidev-process {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: minmax(104px, 1fr);
+  grid-auto-rows: minmax(110px, 1fr);
   flex: 1;
-  gap: 14px;
-  margin-top: 22px;
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .slidev-process article {
   position: relative;
   display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  gap: 10px;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 12px;
   align-items: start;
 }
 
@@ -575,22 +576,22 @@ button {
 .slidev-steps article b {
   display: inline-grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border: 1px solid rgba(63, 125, 105, 0.2);
   border-radius: 12px;
   color: var(--forest);
   background:
     linear-gradient(135deg, rgba(184, 223, 207, 0.68), rgba(255, 254, 250, 0.6));
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 900;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .slidev-steps article {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  gap: 10px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 12px;
   align-items: center;
 }
 
@@ -598,8 +599,8 @@ button {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   flex: 1;
-  gap: 16px;
-  margin-top: 22px;
+  gap: 18px;
+  margin-top: 24px;
 }
 
 .slidev-two > article {
@@ -628,9 +629,9 @@ blockquote {
   background:
     linear-gradient(135deg, rgba(155, 218, 191, 0.5), rgba(244, 201, 93, 0.18)),
     rgba(255, 254, 250, 0.62);
-  font-size: clamp(25px, 3vw, 42px);
+  font-size: clamp(32px, 3.8vw, 50px);
   font-weight: 900;
-  line-height: 1.32;
+  line-height: 1.28;
   box-shadow: 0 18px 40px rgba(45, 84, 76, 0.09);
 }
 
@@ -646,12 +647,12 @@ blockquote {
 
 .slidev-table th,
 .slidev-table td {
-  padding: 11px 13px;
+  padding: 12px 14px;
   border-bottom: 1px solid rgba(220, 230, 223, 0.9);
   color: #536174;
   text-align: left;
-  font-size: clamp(12px, 0.95vw, 14px);
-  line-height: 1.42;
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.4;
 }
 
 .slidev-table th {
@@ -664,18 +665,18 @@ blockquote {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 72px;
+  min-height: 76px;
   margin-top: 24px;
-  padding: 18px 24px;
+  padding: 20px 28px;
   border-radius: 22px;
   color: #1f5146;
   border: 1px solid rgba(255, 255, 255, 0.64);
   background:
     linear-gradient(135deg, rgba(244, 201, 93, 0.5), rgba(155, 218, 191, 0.56)),
     rgba(255, 254, 250, 0.45);
-  font-size: clamp(22px, 2.55vw, 36px);
+  font-size: clamp(26px, 3vw, 44px);
   font-weight: 900;
-  line-height: 1.25;
+  line-height: 1.22;
   box-shadow: 0 18px 38px rgba(59, 92, 83, 0.1);
 }
 
@@ -683,19 +684,19 @@ blockquote {
   display: grid;
   grid-template-columns: 1.05fr repeat(2, minmax(0, 1fr));
   flex: 1;
-  gap: 14px;
-  margin-top: 22px;
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .slidev-radial > strong {
   display: grid;
   place-items: center;
   min-height: 100%;
-  padding: 20px;
+  padding: 22px;
   border-radius: 20px;
   color: #174d41;
   background: linear-gradient(135deg, rgba(155, 218, 191, 0.78), rgba(145, 197, 239, 0.5));
-  font-size: clamp(24px, 2.7vw, 40px);
+  font-size: clamp(30px, 3.5vw, 48px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 16px 36px rgba(49, 73, 75, 0.08);
 }
 
@@ -734,23 +735,6 @@ blockquote {
 .density-5 .slidev-process article,
 .density-6 .slidev-process article {
   padding: 13px;
-}
-
-.density-5 .slidev-card p,
-.density-6 .slidev-card p,
-.density-5 .slidev-process p,
-.density-6 .slidev-process p,
-.density-5 .slidev-steps p,
-.density-6 .slidev-steps p {
-  font-size: clamp(12px, 0.92vw, 14px);
-  line-height: 1.42;
-}
-
-.density-5 .slidev-card h3,
-.density-6 .slidev-card h3,
-.density-5 .slidev-process h3,
-.density-6 .slidev-process h3 {
-  font-size: clamp(15px, 1.1vw, 17px);
 }
 
 .slidev-controls button:hover {
@@ -1134,4 +1118,146 @@ blockquote {
     padding: 5px 8px;
     font-size: 12px;
   }
+}
+
+/* ===== FULLSCREEN MODE ===== */
+.slidev-fullscreen {
+  display: block;
+  padding: 0;
+  gap: 0;
+}
+
+.slidev-fullscreen .slidev-toc {
+  display: none;
+}
+
+.slidev-fullscreen .slidev-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  max-height: none;
+  aspect-ratio: auto;
+  height: 100%;
+  margin: 0;
+  justify-self: auto;
+  align-self: auto;
+  padding: clamp(40px, 5vw, 72px) clamp(40px, 5vw, 72px);
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  animation: none;
+}
+
+.slidev-fullscreen .slidev-stage::before {
+  inset: 24px;
+  border-radius: 16px;
+}
+
+.slidev-fullscreen .slidev-stage::after {
+  right: 36px;
+  bottom: 30px;
+}
+
+.slidev-fullscreen .slidev-stage h1 {
+  font-size: clamp(56px, 6.5vw, 84px);
+  max-width: 1100px;
+}
+
+.slidev-fullscreen .slidev-stage h2 {
+  font-size: clamp(42px, 4.8vw, 62px);
+  max-width: 1160px;
+}
+
+.slidev-fullscreen .slidev-subtitle {
+  font-size: clamp(20px, 2vw, 28px);
+}
+
+.slidev-fullscreen .slidev-card h3,
+.slidev-fullscreen .slidev-steps h3,
+.slidev-fullscreen .slidev-process h3,
+.slidev-fullscreen .slidev-two h3 {
+  font-size: clamp(22px, 1.8vw, 28px);
+}
+
+.slidev-fullscreen .slidev-card p,
+.slidev-fullscreen .slidev-steps p,
+.slidev-fullscreen .slidev-process p,
+.slidev-fullscreen .slidev-two p,
+.slidev-fullscreen .slidev-card li,
+.slidev-fullscreen .slidev-two li {
+  font-size: clamp(17px, 1.4vw, 22px);
+  line-height: 1.5;
+}
+
+.slidev-fullscreen blockquote {
+  font-size: clamp(38px, 4.5vw, 60px);
+}
+
+.slidev-fullscreen .slidev-formula {
+  font-size: clamp(30px, 3.5vw, 52px);
+}
+
+.slidev-fullscreen .slidev-table th,
+.slidev-fullscreen .slidev-table td {
+  font-size: clamp(16px, 1.3vw, 20px);
+  padding: 14px 18px;
+}
+
+.slidev-fullscreen .slidev-radial > strong {
+  font-size: clamp(36px, 4.2vw, 56px);
+}
+
+.slidev-fullscreen .slidev-grid {
+  gap: 20px;
+  margin-top: 30px;
+  grid-auto-rows: minmax(140px, 1fr);
+}
+
+.slidev-fullscreen .slidev-steps,
+.slidev-fullscreen .slidev-process,
+.slidev-fullscreen .slidev-two,
+.slidev-fullscreen .slidev-radial {
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.slidev-fullscreen .slidev-card {
+  padding: 24px;
+  gap: 16px;
+}
+
+.slidev-fullscreen .slidev-heading {
+  padding-bottom: 20px;
+}
+
+.slidev-fullscreen .slidev-meta {
+  margin-bottom: clamp(18px, 2.5vh, 28px);
+  font-size: 14px;
+}
+
+.slidev-fullscreen .slidev-controls {
+  position: fixed;
+  bottom: 12px;
+  right: 50%;
+  transform: translateX(50%);
+  z-index: 50;
+}
+
+.slidev-fullscreen .slidev-controls button {
+  font-size: 14px;
+  padding: 6px 12px;
+}
+
+.slidev-fullscreen .slidev-pills,
+.slidev-fullscreen .slidev-tags {
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.slidev-fullscreen .slidev-pills span,
+.slidev-fullscreen .slidev-tags span {
+  font-size: clamp(15px, 1.2vw, 18px);
+  min-height: 34px;
+  padding: 8px 16px;
 }

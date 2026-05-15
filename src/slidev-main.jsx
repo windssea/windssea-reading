@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   ArrowLeft,
@@ -50,6 +50,8 @@ function App() {
   const [fragment, setFragment] = useState(0);
   const [showNotes, setShowNotes] = useState(false);
   const [showOverview, setShowOverview] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const shellRef = useRef(null);
 
   const slide = slides[current];
   const maxFragment = fragmentCount(slide);
@@ -107,6 +109,37 @@ function App() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [current, fragment, maxFragment]);
 
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen().catch(() => {});
+      setIsFullscreen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    function onFsChange() {
+      setIsFullscreen(!!document.fullscreenElement);
+    }
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
+
+  useEffect(() => {
+    function onFsKey(e) {
+      if ((e.key === 'f' || e.key === 'F') && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        if (e.target === document.body || e.target === document.documentElement || e.target.classList.contains('slidev-shell')) {
+          e.preventDefault();
+          toggleFullscreen();
+        }
+      }
+    }
+    window.addEventListener('keydown', onFsKey);
+    return () => window.removeEventListener('keydown', onFsKey);
+  }, [toggleFullscreen, showNotes, showOverview]);
+
   function onPageTap(event) {
     if (window.innerWidth > 900) return;
     if (showNotes || showOverview) return;
@@ -116,7 +149,7 @@ function App() {
   }
 
   return (
-    <main className="slidev-shell" onClick={onPageTap}>
+    <main className={`slidev-shell${isFullscreen ? ' slidev-fullscreen' : ''}`} ref={shellRef} onClick={onPageTap}>
       <div className="slidev-progress" style={{ width: `${progress}%` }} />
       <aside className="slidev-toc">
         <button type="button" className="slidev-brand" onClick={() => goTo(0)}>
@@ -146,6 +179,7 @@ function App() {
         <button type="button" onClick={prev}>上一页</button>
         <button type="button" onClick={() => setShowOverview(true)}>总览</button>
         <button type="button" onClick={() => setShowNotes((value) => !value)}>备注</button>
+        <button type="button" onClick={toggleFullscreen}>{isFullscreen ? '退出全屏' : '全屏'}</button>
         <button type="button" onClick={next}>下一页</button>
       </nav>
       {showNotes && <Notes slide={slide} onClose={() => setShowNotes(false)} />}
