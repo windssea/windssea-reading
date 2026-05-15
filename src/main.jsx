@@ -439,7 +439,9 @@ function App() {
   const [current, setCurrent] = useState(0);
   const [showNotes, setShowNotes] = useState(false);
   const [showOverview, setShowOverview] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const presenterRef = useRef(null);
+  const touchRef = useRef({ x: 0, y: 0, time: 0 });
 
   const progress = useMemo(() => ((current + 1) / slides.length) * 100, [current]);
 
@@ -460,6 +462,41 @@ function App() {
     presenter.document.close();
     presenter.focus();
   }
+
+  function handleTouchStart(event) {
+    const touch = event.touches[0];
+    touchRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+      time: Date.now()
+    };
+  }
+
+  function handleTouchEnd(event) {
+    if (!isMobile || showNotes || showOverview) return;
+
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - touchRef.current.x;
+    const deltaY = touch.clientY - touchRef.current.y;
+    const elapsed = Date.now() - touchRef.current.time;
+
+    if (elapsed > 700 || Math.abs(deltaX) < 48 || Math.abs(deltaY) > 72) return;
+
+    if (deltaX < 0) {
+      setCurrent((value) => clamp(value + 1, 0, slides.length - 1));
+    } else {
+      setCurrent((value) => clamp(value - 1, 0, slides.length - 1));
+    }
+  }
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 760px)');
+    const syncMobile = () => setIsMobile(media.matches);
+
+    syncMobile();
+    media.addEventListener('change', syncMobile);
+    return () => media.removeEventListener('change', syncMobile);
+  }, []);
 
   useEffect(() => {
     presenterRef.current?.postMessage({ type: 'audience-goto', idx: current }, '*');
@@ -520,7 +557,11 @@ function App() {
   const slide = slides[current];
 
   return (
-    <main className="deck-shell">
+    <main
+      className={`deck-shell${isMobile ? ' mobile-shell' : ''}`}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="progress" style={{ width: `${progress}%` }} />
       <aside className="rail" aria-label="课程章节">
         <button className="rail-brand" type="button" onClick={() => setCurrent(0)} title="回到首页">
