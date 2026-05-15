@@ -1,0 +1,72 @@
+- main [ref=e3]:
+  - complementary "课程章节" [ref=e5]:
+    - button "阅读 理解 course module" [ref=e6] [cursor=pointer]:
+      - generic [ref=e7]: 阅读
+      - generic [ref=e8]: 理解
+      - generic [ref=e9]: course module
+    - navigation [ref=e10]:
+      - button "总法" [ref=e11] [cursor=pointer]:
+        - img [ref=e13]
+        - generic [ref=e16]: 总法
+      - button "记叙文" [ref=e17] [cursor=pointer]:
+        - img [ref=e19]
+        - generic [ref=e22]: 记叙文
+      - button "说明文" [ref=e23] [cursor=pointer]:
+        - img [ref=e25]
+        - generic [ref=e28]: 说明文
+      - button "议论文" [ref=e29] [cursor=pointer]:
+        - img [ref=e31]
+        - generic [ref=e33]: 议论文
+      - button "题型" [ref=e34] [cursor=pointer]:
+        - img [ref=e36]
+        - generic [ref=e40]: 题型
+      - button "检查" [ref=e41] [cursor=pointer]:
+        - img [ref=e43]
+        - generic [ref=e45]: 检查
+    - button "收起目录" [ref=e46] [cursor=pointer]:
+      - img [ref=e47]
+  - generic [ref=e50]:
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - img [ref=e53]
+        - generic [ref=e56]: 课堂导入
+      - heading "阅读理解答题技巧" [level=1] [ref=e57]
+      - paragraph [ref=e58]: 给小学生的一套清楚、好记、能落笔的方法
+      - generic [ref=e59]:
+        - generic [ref=e60]: 读懂文章
+        - generic [ref=e61]: 找准依据
+        - generic [ref=e62]: 规范表达
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - img [ref=e65]
+        - generic [ref=e68]: READ
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - generic [ref=e71]: "1"
+          - text: 先看原文
+        - generic [ref=e72]:
+          - generic [ref=e73]: "2"
+          - text: 再分题型
+        - generic [ref=e74]:
+          - generic [ref=e75]: "3"
+          - text: 最后写完整
+  - generic [ref=e77]: 1 / 27
+  - generic "幻灯片控制" [ref=e78]:
+    - button "首页" [ref=e79] [cursor=pointer]:
+      - img [ref=e80]
+      - text: 首页
+    - button "上一页" [ref=e83] [cursor=pointer]:
+      - img [ref=e84]
+      - text: 上一页
+    - button "总览" [ref=e86] [cursor=pointer]:
+      - img [ref=e87]
+      - text: 总览
+    - button "讲稿" [ref=e92] [cursor=pointer]:
+      - img [ref=e93]
+      - text: 讲稿
+    - button "演讲" [ref=e96] [cursor=pointer]:
+      - img [ref=e97]
+      - text: 演讲
+    - button "下一页" [ref=e100] [cursor=pointer]:
+      - img [ref=e101]
+      - text: 下一页

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { runButtonTapAnime, runRailAnime, runSlideAnime } from './animeEffects';
 import './styles.css';
 
 const slides = [
@@ -541,6 +542,9 @@ function App() {
   const [showOverview, setShowOverview] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [railCollapsed, setRailCollapsed] = useState(false);
+  const slideRef = useRef(null);
+  const railRef = useRef(null);
+  const previousSlideRef = useRef(0);
   const presenterRef = useRef(null);
   const touchRef = useRef({ x: 0, y: 0, time: 0 });
 
@@ -562,6 +566,11 @@ function App() {
     presenter.document.write(buildPresenterHtml(current));
     presenter.document.close();
     presenter.focus();
+  }
+
+  function tapAndRun(event, action) {
+    runButtonTapAnime(event.currentTarget);
+    action();
   }
 
   function handleTouchStart(event) {
@@ -602,6 +611,14 @@ function App() {
   useEffect(() => {
     presenterRef.current?.postMessage({ type: 'audience-goto', idx: current }, '*');
   }, [current]);
+
+  useEffect(() => {
+    const direction = current >= previousSlideRef.current ? 1 : -1;
+    previousSlideRef.current = current;
+    return runSlideAnime(slideRef.current, { direction, isMobile });
+  }, [current, isMobile]);
+
+  useEffect(() => runRailAnime(railRef.current, railCollapsed), [railCollapsed]);
 
   useEffect(() => {
     function onMessage(event) {
@@ -664,8 +681,8 @@ function App() {
       onTouchEnd={handleTouchEnd}
     >
       <div className="progress" style={{ width: `${progress}%` }} />
-      <aside className={`rail${railCollapsed ? ' is-collapsed' : ''}`} aria-label="课程章节">
-        <button className="rail-brand" type="button" onClick={() => setCurrent(0)} title="回到首页">
+      <aside ref={railRef} className={`rail${railCollapsed ? ' is-collapsed' : ''}`} aria-label="课程章节">
+        <button className="rail-brand" type="button" onClick={(event) => tapAndRun(event, () => setCurrent(0))} title="回到首页">
           <span>阅读</span>
           <b>理解</b>
           <small>course module</small>
@@ -676,7 +693,7 @@ function App() {
               key={name}
               type="button"
               className={index === activeSection(current) ? 'active' : ''}
-              onClick={() => setCurrent(sectionStarts[index])}
+              onClick={(event) => tapAndRun(event, () => setCurrent(sectionStarts[index]))}
               title={`跳转到${name}`}
             >
               <span className="rail-icon">
@@ -689,14 +706,14 @@ function App() {
         <button
           className="rail-toggle"
           type="button"
-          onClick={() => setRailCollapsed((value) => !value)}
+          onClick={(event) => tapAndRun(event, () => setRailCollapsed((value) => !value))}
           aria-label={railCollapsed ? '展开目录' : '收起目录'}
           title={railCollapsed ? '展开目录' : '收起目录'}
         >
           <Icon name={railCollapsed ? 'chevron-right' : 'chevron-left'} />
         </button>
       </aside>
-      <section key={current} className={`slide slide-${slide.type}`}>
+      <section ref={slideRef} key={current} className={`slide slide-${slide.type}`}>
         <SlideContent slide={slide} index={current} />
       </section>
       <footer className="deck-footer">
@@ -705,27 +722,27 @@ function App() {
         </span>
       </footer>
       <div className="controls" aria-label="幻灯片控制">
-        <button type="button" onClick={() => setCurrent(0)}>
+        <button type="button" onClick={(event) => tapAndRun(event, () => setCurrent(0))}>
           <Icon name="home" />
           首页
         </button>
-        <button type="button" onClick={() => setCurrent((value) => clamp(value - 1, 0, slides.length - 1))}>
+        <button type="button" onClick={(event) => tapAndRun(event, () => setCurrent((value) => clamp(value - 1, 0, slides.length - 1)))}>
           <Icon name="chevron-left" />
           上一页
         </button>
-        <button type="button" onClick={() => setShowOverview(true)}>
+        <button type="button" onClick={(event) => tapAndRun(event, () => setShowOverview(true))}>
           <Icon name="layout" />
           总览
         </button>
-        <button type="button" onClick={() => setShowNotes((value) => !value)}>
+        <button type="button" onClick={(event) => tapAndRun(event, () => setShowNotes((value) => !value))}>
           <Icon name="note" />
           讲稿
         </button>
-        <button type="button" onClick={openPresenter}>
+        <button type="button" onClick={(event) => tapAndRun(event, openPresenter)}>
           <Icon name="presentation" />
           演讲
         </button>
-        <button type="button" onClick={() => setCurrent((value) => clamp(value + 1, 0, slides.length - 1))}>
+        <button type="button" onClick={(event) => tapAndRun(event, () => setCurrent((value) => clamp(value + 1, 0, slides.length - 1)))}>
           <Icon name="chevron-right" />
           下一页
         </button>
