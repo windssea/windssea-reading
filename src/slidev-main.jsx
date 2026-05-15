@@ -246,13 +246,21 @@ function SlideContent({ slide, fragment }) {
   if (slide.type === 'cover') {
     return (
       <div className="slidev-cover">
-        <div className="slidev-cover-title">
-          <IconBadge icon={Sparkles} />
-          <h1>{slide.title}</h1>
+        <div className="slidev-cover-left">
+          <div className="slidev-cover-title">
+            <IconBadge icon={Sparkles} />
+            <h1>{slide.title}</h1>
+          </div>
+          <p className="slidev-subtitle">{slide.subtitle}</p>
         </div>
-        <p className="slidev-subtitle">{slide.subtitle}</p>
-        <div className="slidev-steps">
-          {slide.goals.map((goal, index) => <article className={visible(fragment, index)} key={goal}><b>{index + 1}</b>{goal}</article>)}
+        <div className="slidev-cover-right">
+          <h4>答题三步法</h4>
+          {slide.goals.map((goal, index) => (
+            <article className={visible(fragment, index)} key={goal}>
+              <b>{index + 1}</b>
+              <span>{goal}</span>
+            </article>
+          ))}
         </div>
       </div>
     );

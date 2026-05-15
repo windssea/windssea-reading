@@ -347,11 +347,77 @@ button {
 
 .slidev-cover {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 420px);
   align-items: center;
-  gap: clamp(18px, 3vw, 32px);
+  gap: clamp(28px, 5vw, 64px);
   flex: 1;
   min-height: 0;
+}
+
+.slidev-cover-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+
+.slidev-cover-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  min-height: 0;
+  padding: clamp(24px, 3vw, 36px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(240, 251, 246, 0.72)),
+    rgba(255, 254, 250, 0.7);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    0 14px 34px rgba(49, 73, 75, 0.08);
+}
+
+.slidev-cover-right h4 {
+  margin: 0 0 6px;
+  color: var(--forest);
+  font-size: clamp(18px, 1.4vw, 22px);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+
+.slidev-cover-right article {
+  position: relative;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: clamp(12px, 1.4vw, 16px);
+  border: 1px solid rgba(220, 230, 223, 0.7);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 254, 250, 0.56));
+  box-shadow: 0 6px 18px rgba(49, 73, 75, 0.04);
+}
+
+.slidev-cover-right article b {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--mint-deep), #3a9d7c);
+  font-size: 15px;
+  font-weight: 900;
+  box-shadow: 0 4px 12px rgba(34, 119, 96, 0.24);
+}
+
+.slidev-cover-right article span {
+  color: #3d5466;
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .slidev-cover-title {
@@ -754,6 +820,7 @@ blockquote {
 .slidev-steps article:not(.visible),
 .slidev-process article:not(.visible),
 .slidev-two > article:not(.visible),
+.slidev-cover-right article:not(.visible),
 .slidev-tags span:not(.visible),
 .slidev-pills span:not(.visible),
 .slidev-orbit span:not(.visible),
@@ -767,6 +834,7 @@ blockquote {
 .slidev-steps article,
 .slidev-process article,
 .slidev-two > article,
+.slidev-cover-right article,
 .slidev-tags span,
 .slidev-pills span,
 .slidev-orbit span,
@@ -1360,11 +1428,35 @@ blockquote {
 }
 
 .slidev-fullscreen .slidev-cover {
-  gap: clamp(24px, 3.5vw, 40px);
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 480px);
+  gap: clamp(36px, 6vw, 80px);
 }
 
-.slidev-fullscreen .slidev-cover .slidev-steps {
-  grid-auto-rows: minmax(140px, 1fr);
+.slidev-fullscreen .slidev-cover-right {
+  padding: clamp(28px, 3.5vw, 44px);
+  gap: 18px;
+  border-radius: 24px;
+}
+
+.slidev-fullscreen .slidev-cover-right h4 {
+  font-size: clamp(20px, 1.8vw, 26px);
+  margin-bottom: 8px;
+}
+
+.slidev-fullscreen .slidev-cover-right article {
+  padding: clamp(14px, 1.6vw, 20px);
+  gap: 14px;
+  grid-template-columns: 46px minmax(0, 1fr);
+}
+
+.slidev-fullscreen .slidev-cover-right article b {
+  width: 42px;
+  height: 42px;
+  font-size: 18px;
+}
+
+.slidev-fullscreen .slidev-cover-right article span {
+  font-size: clamp(20px, 2vw, 28px);
 }
 
 /* ---- controls ---- */
