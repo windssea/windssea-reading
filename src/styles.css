@@ -1,19 +1,23 @@
 :root {
-  --ink: #11110f;
-  --muted: #5f5a50;
-  --paper: #fdfcf8;
+  --ink: #26324a;
+  --muted: #68738b;
+  --paper: #fffaf1;
   --panel: #ffffff;
-  --panel-soft: #f6f3ea;
-  --line: rgba(28, 24, 18, 0.13);
-  --line-strong: rgba(28, 24, 18, 0.34);
-  --accent: #1a3a7a;
-  --accent-2: #2d7d6e;
-  --accent-3: #8a1a1a;
-  --accent-soft: #e8edf8;
-  --red: #8a1a1a;
-  --gold: #b69a52;
-  --shadow: none;
-  --shadow-hard: 0 1px 2px rgba(30, 24, 18, 0.1);
+  --panel-soft: #f0fbf6;
+  --line: rgba(78, 111, 137, 0.15);
+  --line-strong: rgba(78, 111, 137, 0.32);
+  --accent: #4d8fcf;
+  --accent-2: #63bfa8;
+  --accent-3: #f3a66e;
+  --accent-soft: #eaf5ff;
+  --red: #e87f89;
+  --gold: #f5c86f;
+  --lavender: #cab8ff;
+  --mint-soft: #eafbf3;
+  --peach-soft: #fff0df;
+  --blue-soft: #eaf5ff;
+  --shadow: 0 18px 48px rgba(73, 107, 132, 0.14);
+  --shadow-hard: 0 6px 18px rgba(84, 123, 151, 0.12);
   font-family: "Inter", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
   color: var(--ink);
   background: var(--paper);
@@ -39,11 +43,12 @@ button {
   height: 100vh;
   padding: clamp(18px, 3vw, 34px) clamp(18px, 3vw, 42px) clamp(18px, 3vw, 34px) clamp(132px, 13vw, 170px);
   background:
-    linear-gradient(90deg, rgba(28, 24, 18, 0.032) 0 1px, transparent 1px 100%),
-    linear-gradient(0deg, rgba(28, 24, 18, 0.024) 0 1px, transparent 1px 100%),
-    linear-gradient(135deg, #fdfcf8, #f5f3ea 56%, #fbfaf6),
+    linear-gradient(90deg, rgba(93, 137, 164, 0.055) 0 1px, transparent 1px 100%),
+    linear-gradient(0deg, rgba(93, 137, 164, 0.045) 0 1px, transparent 1px 100%),
+    radial-gradient(circle at 18px 18px, rgba(99, 191, 168, 0.16) 0 3px, transparent 4px),
+    linear-gradient(135deg, #fffaf1 0%, #f2fbff 42%, #fff4ec 100%),
     var(--paper);
-  background-size: 56px 56px, 56px 56px, auto, auto;
+  background-size: 58px 58px, 58px 58px, 116px 116px, auto, auto;
 }
 
 .progress {
@@ -51,7 +56,7 @@ button {
   top: 0;
   left: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--red));
+  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--gold), var(--red));
   transition: width 240ms ease;
   z-index: 10;
 }
@@ -61,8 +66,9 @@ button {
   inset: 0 auto 0 0;
   width: 142px;
   padding: 30px 18px;
-  border-right: 1px solid var(--line);
-  background: rgba(253, 252, 248, 0.94);
+  border-right: 1px solid rgba(94, 134, 160, 0.18);
+  background: rgba(255, 250, 241, 0.88);
+  backdrop-filter: blur(14px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -81,9 +87,22 @@ button {
   letter-spacing: 0;
 }
 
+.rail-brand::before {
+  content: "";
+  width: 38px;
+  height: 30px;
+  border: 3px solid var(--accent);
+  border-radius: 8px 8px 6px 6px;
+  background:
+    linear-gradient(90deg, transparent 48%, rgba(77, 143, 207, 0.28) 48% 52%, transparent 52%),
+    linear-gradient(135deg, #ffffff, #eaf5ff);
+  box-shadow: 8px 8px 0 rgba(99, 191, 168, 0.18);
+  margin-bottom: 6px;
+}
+
 .rail-brand b {
   color: var(--accent);
-  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  font-family: "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
   font-size: 34px;
   font-weight: 700;
   transition: color 160ms ease;
@@ -97,7 +116,7 @@ button {
 }
 
 .rail-brand:hover b {
-  color: var(--red);
+  color: var(--accent-2);
 }
 
 .rail nav {
@@ -108,14 +127,19 @@ button {
 .rail nav span {
   writing-mode: vertical-rl;
   padding: 10px 8px;
-  border-left: 2px solid transparent;
+  border-radius: 999px;
+  border: 1px solid transparent;
   color: var(--muted);
+  background: rgba(255, 255, 255, 0.58);
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
 }
 
 .rail nav .active {
   color: var(--accent);
-  border-color: var(--accent);
+  border-color: rgba(77, 143, 207, 0.28);
+  background: var(--blue-soft);
   font-weight: 800;
+  transform: translateX(3px);
 }
 
 .slide {
@@ -123,10 +147,11 @@ button {
   height: calc(100vh - 96px);
   margin: 0 auto;
   padding: clamp(40px, 5vw, 68px) clamp(38px, 6vw, 82px);
-  border: 1px solid var(--line);
-  border-radius: 0;
+  border: 1px solid rgba(94, 134, 160, 0.18);
+  border-radius: 22px;
   background:
-    linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.91)),
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.9)),
+    radial-gradient(circle at 92% 10%, rgba(245, 200, 111, 0.14) 0 10%, transparent 11%),
     var(--panel);
   box-shadow: var(--shadow-hard), var(--shadow);
   position: relative;
@@ -134,6 +159,22 @@ button {
   animation: slide-enter 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+.slide::before {
+  content: "";
+  position: absolute;
+  right: clamp(22px, 4vw, 54px);
+  top: clamp(18px, 3vw, 34px);
+  width: clamp(78px, 9vw, 118px);
+  height: clamp(18px, 2.4vw, 30px);
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, var(--gold) 0 26%, transparent 26% 33%, var(--accent-2) 33% 60%, transparent 60% 67%, var(--lavender) 67% 100%);
+  opacity: 0.5;
+  transform: rotate(-3deg);
+  animation: float-mark 5.5s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .slide::-webkit-scrollbar,
@@ -147,8 +188,8 @@ table::-webkit-scrollbar {
   content: "";
   position: absolute;
   inset: 30px;
-  border: 1px solid rgba(28, 24, 18, 0.08);
-  border-radius: 0;
+  border: 1px dashed rgba(77, 143, 207, 0.16);
+  border-radius: 16px;
   width: auto;
   height: auto;
   transform: none;
@@ -170,10 +211,24 @@ table::-webkit-scrollbar {
   margin: 0;
   color: var(--accent);
   font-size: 15px;
-  font-style: italic;
-  font-weight: 500;
+  font-style: normal;
+  font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background:
+    linear-gradient(90deg, transparent 45%, rgba(255,255,255,.75) 45% 55%, transparent 55%),
+    linear-gradient(135deg, var(--gold), var(--accent-3));
+  box-shadow: 0 3px 0 rgba(245, 200, 111, 0.24);
 }
 
 .slide-index {
@@ -190,7 +245,7 @@ p {
 
 h1 {
   max-width: 840px;
-  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  font-family: "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
   font-size: 72px;
   line-height: 1.04;
   font-weight: 700;
@@ -199,7 +254,7 @@ h1 {
 }
 
 h2 {
-  font-family: "Noto Serif SC", "Songti SC", Georgia, serif;
+  font-family: "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
   font-size: 46px;
   line-height: 1.12;
   font-weight: 700;
@@ -211,6 +266,23 @@ h3 {
   font-size: 21px;
   font-weight: 700;
   margin-bottom: 12px;
+}
+
+.slide article h3 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.slide article h3::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  background:
+    linear-gradient(135deg, var(--accent-2) 0 48%, transparent 48% 56%, var(--gold) 56% 100%);
+  box-shadow: 0 4px 0 rgba(99, 191, 168, 0.18);
 }
 
 p,
@@ -247,7 +319,22 @@ td {
   padding: 14px 16px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: var(--panel-soft);
+  background: linear-gradient(135deg, var(--panel-soft), #ffffff);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.goal::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(77, 143, 207, 0.16);
+  border-left-color: rgba(245, 200, 111, 0.42);
+  border-radius: 50%;
 }
 
 .goal span,
@@ -257,10 +344,11 @@ td {
   place-items: center;
   width: 42px;
   height: 42px;
-  border-radius: 4px;
-  background: var(--accent);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: white;
   font-weight: 900;
+  box-shadow: 0 6px 14px rgba(77, 143, 207, 0.22);
 }
 
 .check-grid,
@@ -282,17 +370,48 @@ td {
 .radial article {
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: var(--panel);
-  box-shadow: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.9)),
+    var(--panel);
+  box-shadow: 0 8px 22px rgba(74, 113, 142, 0.08);
   padding: clamp(14px, 1.7vw, 20px);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.check-item:hover,
+.card-grid article:hover,
+.mini-grid article:hover,
+.split-layout article:hover,
+.compare-grid article:hover,
+.three-grid article:hover,
+.radial article:hover,
+.goal:hover {
+  transform: translateY(-3px);
+  border-color: rgba(77, 143, 207, 0.28);
+  box-shadow: 0 14px 30px rgba(74, 113, 142, 0.12);
 }
 
 .check-item span {
   display: block;
-  width: 36px;
-  height: 2px;
-  background: var(--accent);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background:
+    linear-gradient(135deg, var(--accent-2), var(--gold));
   margin-bottom: 14px;
+  position: relative;
+}
+
+.check-item span::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  width: 10px;
+  height: 16px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
 }
 
 .check-item p,
@@ -307,10 +426,10 @@ td {
 blockquote {
   margin: 0 0 26px;
   padding: clamp(18px, 2.5vw, 30px) clamp(20px, 3vw, 36px);
-  border-left: 4px solid var(--accent);
+  border-left: 6px solid var(--accent-2);
   border-top: 0;
-  background: linear-gradient(135deg, #e8edf8, #f5f3ea);
-  border-radius: 0;
+  background: linear-gradient(135deg, var(--blue-soft), var(--mint-soft) 52%, var(--peach-soft));
+  border-radius: 14px;
   font-size: 36px;
   line-height: 1.3;
   font-weight: 900;
@@ -328,7 +447,7 @@ blockquote {
   gap: 14px;
   padding: clamp(14px, 2vw, 20px);
   border-bottom: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(240, 251, 246, 0.82));
   border: 1px solid var(--line);
   border-radius: 8px;
 }
@@ -350,7 +469,7 @@ blockquote {
 .tag-wrap span,
 .tip-row span {
   padding: 12px 16px;
-  border-radius: 4px;
+  border-radius: 999px;
   background: var(--panel-soft);
   color: var(--accent);
   font-size: 17px;
@@ -358,7 +477,7 @@ blockquote {
 }
 
 .formula {
-  color: var(--red);
+  color: #d66f63;
   font-size: 26px;
   font-weight: 900;
   line-height: 1.45;
@@ -366,10 +485,10 @@ blockquote {
 
 .formula.wide {
   padding: 24px 28px;
-  border-radius: 0;
-  background: #fff8ed;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fff8ed, var(--peach-soft));
   border: 1px solid var(--line);
-  border-left: 4px solid var(--accent-3);
+  border-left: 6px solid var(--accent-3);
 }
 
 .example {
@@ -381,8 +500,12 @@ table {
   border-collapse: collapse;
   background: white;
   border: 1px solid var(--line);
-  border-radius: 0;
+  border-radius: 12px;
   overflow: hidden;
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(234, 245, 255, 0.48);
 }
 
 th,
@@ -393,7 +516,7 @@ td {
 }
 
 th {
-  background: var(--ink);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
   color: white;
   font-size: 16px;
 }
@@ -413,7 +536,7 @@ tr:last-child td {
 }
 
 .three-grid b {
-  color: var(--red);
+  color: #d66f63;
   font-size: 20px;
 }
 
@@ -438,8 +561,8 @@ ul {
   display: grid;
   place-items: center;
   min-height: 360px;
-  border-radius: 0;
-  background: linear-gradient(135deg, var(--accent), var(--ink));
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2), var(--lavender));
   color: white;
   font-size: 42px;
   font-weight: 900;
@@ -471,11 +594,38 @@ ul {
   border: 1px solid var(--line-strong);
   background: white;
   color: var(--ink);
-  border-radius: 4px;
+  border-radius: 999px;
   padding: 10px 14px;
   cursor: pointer;
   box-shadow: none;
   transition: transform 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.controls button::before {
+  display: inline-block;
+  margin-right: 6px;
+  font-weight: 900;
+  color: var(--accent-2);
+}
+
+.controls button:nth-child(1)::before {
+  content: "⌂";
+}
+
+.controls button:nth-child(2)::before {
+  content: "‹";
+}
+
+.controls button:nth-child(3)::before {
+  content: "▦";
+}
+
+.controls button:nth-child(4)::before {
+  content: "✎";
+}
+
+.controls button:nth-child(5)::before {
+  content: "›";
 }
 
 .controls button:hover,
@@ -497,7 +647,7 @@ ul {
   -ms-overflow-style: none;
   padding: 28px;
   border: 1px solid var(--line-strong);
-  border-radius: 8px;
+  border-radius: 16px;
   background: white;
   box-shadow: var(--shadow);
   z-index: 40;
@@ -532,7 +682,7 @@ ul {
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 30px;
-  border-radius: 8px;
+  border-radius: 16px;
   background: var(--paper);
   animation: panel-in 180ms ease-out;
 }
@@ -551,7 +701,7 @@ ul {
   min-height: 88px;
   text-align: left;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 8px;
   background: white;
   padding: 14px;
   cursor: pointer;
@@ -559,7 +709,7 @@ ul {
 
 .overview-grid button.active {
   border-color: var(--accent);
-  background: var(--accent-soft);
+  background: linear-gradient(135deg, var(--accent-soft), var(--mint-soft));
 }
 
 .overview-grid span {
@@ -653,6 +803,17 @@ table {
   }
 }
 
+@keyframes float-mark {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(5px) rotate(2deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -686,12 +847,12 @@ table {
     height: calc(100vh - 92px);
     min-height: 0;
     padding: 22px;
-    border-radius: 0;
+    border-radius: 18px;
   }
 
   .slide::after {
     inset: 16px;
-    border-radius: 0;
+    border-radius: 12px;
   }
 
   .slide-header {
@@ -771,7 +932,7 @@ table {
   .controls {
     position: static;
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 8px;
     width: 100%;
   }
@@ -804,7 +965,7 @@ table {
   .slide {
     height: calc(100vh - 88px);
     padding: 18px;
-    border-radius: 0;
+    border-radius: 14px;
   }
 
   h1 {
