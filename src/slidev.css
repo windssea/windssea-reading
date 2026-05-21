@@ -1277,6 +1277,242 @@ blockquote {
   }
 }
 
+/* ---- layout refinement ---- */
+.slidev-shell {
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: 18px;
+  padding: 20px 28px 18px 18px;
+}
+
+.slidev-toc {
+  padding: 16px 9px;
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 254, 250, 0.78), rgba(245, 249, 245, 0.58)),
+    rgba(255, 254, 250, 0.62);
+}
+
+.slidev-brand {
+  min-height: 66px;
+  margin-bottom: 10px;
+  padding-inline: 9px;
+}
+
+.slidev-toc button {
+  min-height: 38px;
+  padding: 8px 9px;
+  border-radius: 13px;
+}
+
+.slidev-stage {
+  width: min(1288px, 100%);
+  max-height: calc(100vh - 94px);
+  padding: clamp(34px, 4.2vw, 58px);
+  border-radius: 24px;
+}
+
+.slidev-stage::before {
+  inset: 17px;
+  border-radius: 19px;
+}
+
+.slidev-stage::after {
+  right: 30px;
+  bottom: 27px;
+  width: 96px;
+}
+
+.slidev-meta {
+  margin-bottom: clamp(14px, 2.2vh, 22px);
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(91, 118, 113, 0.1);
+}
+
+.layout-title .slidev-meta,
+.layout-cover .slidev-meta {
+  margin-bottom: 0;
+}
+
+.slidev-title {
+  grid-template-columns: minmax(0, 1fr) 250px;
+  align-content: center;
+}
+
+.layout-cover .slidev-cover-title {
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 16px;
+}
+
+.layout-cover h1 {
+  max-width: none;
+  font-size: clamp(42px, 4.4vw, 60px);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.slidev-title > div:first-child {
+  max-width: 880px;
+}
+
+.slidev-orbit {
+  width: 250px;
+  height: 250px;
+}
+
+.slidev-orbit::after {
+  width: 116px;
+  height: 116px;
+}
+
+.slidev-pills,
+.slidev-tags {
+  gap: 9px;
+}
+
+.slidev-heading {
+  padding-bottom: 18px;
+}
+
+.slidev-grid,
+.slidev-steps,
+.slidev-process,
+.slidev-radial,
+.slidev-two {
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.slidev-card,
+.slidev-steps article,
+.slidev-process article,
+.slidev-two > article {
+  border-radius: 16px;
+}
+
+.slidev-table {
+  table-layout: fixed;
+}
+
+.slidev-table th,
+.slidev-table td {
+  vertical-align: top;
+}
+
+.slidev-controls {
+  min-height: 40px;
+  padding: 5px 6px;
+  background: rgba(255, 254, 250, 0.44);
+  box-shadow: 0 12px 30px rgba(46, 67, 76, 0.08);
+}
+
+.slidev-controls button {
+  min-height: 30px;
+  padding: 6px 11px;
+  color: #405668;
+}
+
+.slidev-controls button:last-child {
+  color: #174f44;
+  background: rgba(155, 218, 191, 0.5);
+}
+
+.slidev-controls button:last-child:hover {
+  background: rgba(155, 218, 191, 0.72);
+}
+
+@media (max-width: 900px) {
+  .slidev-shell {
+    gap: 9px;
+    padding: 10px;
+  }
+
+  .slidev-stage {
+    height: calc(100dvh - 62px);
+    padding: 18px 14px;
+    border-radius: 18px;
+  }
+
+  .slidev-stage::before {
+    inset: 9px;
+    border-radius: 14px;
+  }
+
+  .slidev-meta {
+    margin-bottom: 10px;
+    padding-bottom: 9px;
+  }
+
+  .layout-title .slidev-meta,
+  .layout-cover .slidev-meta {
+    margin-bottom: 0;
+  }
+
+  .slidev-title {
+    grid-template-columns: 1fr;
+    align-content: center;
+    justify-items: stretch;
+    gap: clamp(18px, 5vh, 34px);
+    min-height: 100%;
+  }
+
+  .slidev-orbit {
+    width: min(180px, 48vw);
+    height: min(180px, 48vw);
+  }
+
+  .slidev-orbit::after {
+    width: min(82px, 22vw);
+    height: min(82px, 22vw);
+  }
+
+  .slidev-controls {
+    width: 100%;
+    max-width: 460px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 4px;
+    min-height: 42px;
+    padding: 4px;
+    border-radius: 18px;
+  }
+
+  .slidev-controls button {
+    min-width: 0;
+    padding: 7px 2px;
+    border-radius: 13px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 520px) {
+  .slidev-stage {
+    height: calc(100dvh - 60px);
+    padding: 16px 12px;
+  }
+
+  .slidev-title {
+    gap: clamp(16px, 4.5vh, 28px);
+  }
+
+  .slidev-stage h1 {
+    font-size: clamp(27px, 7.4vw, 36px);
+  }
+
+  .slidev-orbit {
+    width: min(160px, 46vw);
+    height: min(160px, 46vw);
+  }
+
+  .slidev-pills span,
+  .slidev-tags span {
+    min-height: 25px;
+  }
+
+  .slidev-controls button {
+    font-size: 11px;
+  }
+}
+
 /* ===== FULLSCREEN MODE ===== */
 .slidev-fullscreen {
   display: block;
